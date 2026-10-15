@@ -46,6 +46,11 @@ public static class AppBuilderExtensions
             DockSettings.UsePinnedDockWindow = options.UsePinnedDockWindow.Value;
         }
 
+        if (options.PinMode != null)
+        {
+            DockSettings.PinMode = options.PinMode.Value;
+        }
+
         if (options.UseManagedWindows != null)
         {
             DockSettings.UseManagedWindows = options.UseManagedWindows.Value;
@@ -159,6 +164,20 @@ public static class AppBuilderExtensions
         bool enable = true)
     {
         DockSettings.UsePinnedDockWindow = enable;
+        return builder;
+    }
+
+    /// <summary>
+    /// Sets <see cref="DockSettings.PinMode"/> to the given value.
+    /// </summary>
+    /// <param name="builder">The app builder.</param>
+    /// <param name="mode">What clicking a pinned tool's tab does.</param>
+    /// <returns>The app builder instance.</returns>
+    public static AppBuilder WithPinMode(
+        this AppBuilder builder,
+        DockPinMode mode)
+    {
+        DockSettings.PinMode = mode;
         return builder;
     }
 

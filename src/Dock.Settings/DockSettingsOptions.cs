@@ -32,6 +32,11 @@ public class DockSettingsOptions
     public bool? UsePinnedDockWindow { get; set; }
 
     /// <summary>
+    /// Optional pin mode.
+    /// </summary>
+    public DockPinMode? PinMode { get; set; }
+
+    /// <summary>
     /// Optional managed window hosting flag.
     /// </summary>
     public bool? UseManagedWindows { get; set; }

@@ -35,6 +35,11 @@ public static class DockSettings
     public static bool UsePinnedDockWindow = false;
 
     /// <summary>
+    /// What clicking a pinned tool's tab does: show it over the layout (auto hide), or dock it back (hide).
+    /// </summary>
+    public static DockPinMode PinMode = DockPinMode.AutoHide;
+
+    /// <summary>
     /// Use managed (in-app) windows instead of native OS windows for floating windows.
     /// </summary>
     public static bool UseManagedWindows = false;

@@ -32,11 +32,29 @@
               Command="{Binding Owner.Factory.PreviewPinnedDockable}"
               CommandParameter="{Binding}">
       <MenuItem.IsVisible>
-        <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
-          <Binding />
-          <Binding Path="CanPin" />
-          <Binding Path="DockCapabilityOverrides.CanPin" />
-          <Binding Path="((core:IDock)Owner).DockCapabilityPolicy.CanPin" />
+        <MultiBinding Converter="{x:Static BoolConverters.And}">
+          <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
+            <Binding />
+            <Binding Path="CanPin" />
+            <Binding Path="DockCapabilityOverrides.CanPin" />
+            <Binding Path="((core:IDock)Owner).DockCapabilityPolicy.CanPin" />
+          </MultiBinding>
+          <Binding Converter="{x:Static converters:PinModeConverter.AutoHide}" />
+        </MultiBinding>
+      </MenuItem.IsVisible>
+    </MenuItem>
+    <MenuItem Header="{DynamicResource ToolPinItemControlDockString}"
+              Command="{Binding Owner.Factory.PinDockable}"
+              CommandParameter="{Binding}">
+      <MenuItem.IsVisible>
+        <MultiBinding Converter="{x:Static BoolConverters.And}">
+          <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
+            <Binding />
+            <Binding Path="CanPin" />
+            <Binding Path="DockCapabilityOverrides.CanPin" />
+            <Binding Path="((core:IDock)Owner).DockCapabilityPolicy.CanPin" />
+          </MultiBinding>
+          <Binding Converter="{x:Static converters:PinModeConverter.Hide}" />
         </MultiBinding>
       </MenuItem.IsVisible>
     </MenuItem>
@@ -115,11 +133,11 @@
                     DockProperties.IsDockTarget="True"
                     DockProperties.ShowDockIndicatorOnly="True"
                     DockProperties.IndicatorDockOperation="Fill">
-              <Button Background="Transparent"
+              <Button x:Name="PART_TabButton"
+                      Background="Transparent"
                       BorderBrush="Transparent"
                       BorderThickness="0"
                       CornerRadius="0"
-                      Command="{Binding Owner.Factory.TogglePreviewPinnedDockable}"
                       CommandParameter="{Binding}">
                 <Button.IsVisible>
                   <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
@@ -140,6 +158,16 @@
         </DockableControl>
       </ControlTemplate>
     </Setter>
+
+    <!-- The tab shows the tool over the layout (auto hide), or in hide mode docks it back where it was (pinning again
+         unpins). Set by styles, not in the template: a template value would win over the hide mode's. -->
+    <Style Selector="^/template/ Button#PART_TabButton">
+      <Setter Property="Command" Value="{Binding Owner.Factory.TogglePreviewPinnedDockable}" />
+    </Style>
+
+    <Style Selector="^:hide /template/ Button#PART_TabButton">
+      <Setter Property="Command" Value="{Binding Owner.Factory.PinDockable}" />
+    </Style>
 
     <Style Selector="^[Orientation=Vertical]/template/ LayoutTransformControl#PART_LayoutTransformControl">
       <Setter Property="LayoutTransform">

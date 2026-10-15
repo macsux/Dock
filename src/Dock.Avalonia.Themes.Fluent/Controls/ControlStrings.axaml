@@ -28,6 +28,7 @@
   <!-- ToolPinItemControl -->
   <x:String x:Key="ToolPinItemControlFloatString">_Float</x:String>
   <x:String x:Key="ToolPinItemControlShowString">_Show</x:String>
+  <x:String x:Key="ToolPinItemControlDockString">_Dock</x:String>
   <x:String x:Key="ToolPinItemControlDockAsDocumentString">Dock as Tabbed Document</x:String>
   <x:String x:Key="ToolPinItemControlCloseString">_Close</x:String>
 
@@ -35,6 +36,8 @@
   <x:String x:Key="ToolChromeControlFloatString">_Float</x:String>
   <x:String x:Key="ToolChromeControlDockString">_Dock</x:String>
   <x:String x:Key="ToolChromeControlAutoHideString">_Auto Hide</x:String>
+  <x:String x:Key="ToolChromeControlHideString">_Hide</x:String>
+  <x:String x:Key="ToolChromeControlHideTipString">Hide</x:String>
   <x:String x:Key="ToolChromeControlDockAsDocumentString">Dock as Tabbed Document</x:String>
   <x:String x:Key="ToolChromeControlCloseString">_Close</x:String>
 

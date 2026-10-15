@@ -11,6 +11,7 @@ using Avalonia.Interactivity;
 using Avalonia.Styling;
 using Dock.Avalonia.Automation.Peers;
 using Dock.Model.Core;
+using Dock.Settings;
 using Dock.Avalonia.Internal;
 
 namespace Dock.Avalonia.Controls;
@@ -378,5 +379,6 @@ public class ToolChromeControl : ContentControl
         PseudoClasses.Set(":pinned", IsPinned);
         PseudoClasses.Set(":floating", IsFloating);
         PseudoClasses.Set(":maximized", IsMaximized);
+        PseudoClasses.Set(":hide", DockSettings.PinMode == DockPinMode.Hide);
     }
 }

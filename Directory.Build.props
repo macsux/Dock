@@ -30,4 +30,10 @@
     <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" Visible="false" />
     <None Include="$(MSBuildThisFileDirectory)build/Assets/Icon.png" Pack="true" PackagePath="" Visible="false" />
   </ItemGroup>
+  <!-- A checkout linked into another repository (FrigginAI links it at external/Dock) builds the way that repository says:
+       its Directory.Output.props, the first one above this directory, picks where build output goes. -->
+  <PropertyGroup>
+    <ConsumerOutputProps>$([MSBuild]::GetPathOfFileAbove('Directory.Output.props', '$(MSBuildThisFileDirectory)..'))</ConsumerOutputProps>
+  </PropertyGroup>
+  <Import Project="$(ConsumerOutputProps)" Condition="'$(ConsumerOutputProps)' != ''" />
 </Project>

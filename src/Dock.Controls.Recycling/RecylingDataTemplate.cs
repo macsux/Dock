@@ -1,4 +1,4 @@
-// Copyright (c) Wiesław Šoltés. All rights reserved.
+﻿// Copyright (c) Wiesław Šoltés. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Recycling.Model;
@@ -13,9 +13,11 @@ namespace Avalonia.Controls.Recycling;
 /// </summary>
 public class ControlRecyclingDataTemplate : AvaloniaObject, IRecyclingDataTemplate
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ControlRecyclingDataTemplate"/> class.
+    /// </summary>
     public ControlRecyclingDataTemplate()
     {
-        
     }
     /// <summary>
     /// Defines the ControlRecycling attached property.
