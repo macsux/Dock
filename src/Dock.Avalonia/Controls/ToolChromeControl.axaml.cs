@@ -6,6 +6,7 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
@@ -89,6 +90,27 @@ public class ToolChromeControl : ContentControl
     /// </summary>
     public static readonly StyledProperty<ControlTheme?> MenuButtonThemeProperty =
         AvaloniaProperty.Register<ToolChromeControl, ControlTheme?>(nameof(MenuButtonTheme));
+
+    /// <summary>
+    /// The default <see cref="HeaderActionsTemplate"/>: no buttons of the tool's own.
+    /// </summary>
+    public static readonly IDataTemplate NoHeaderActions = new FuncDataTemplate<object?>((_, _) => null);
+
+    /// <summary>
+    /// Define the <see cref="HeaderActionsTemplate"/> property.
+    /// </summary>
+    public static readonly StyledProperty<IDataTemplate> HeaderActionsTemplateProperty =
+        AvaloniaProperty.Register<ToolChromeControl, IDataTemplate>(nameof(HeaderActionsTemplate), NoHeaderActions);
+
+    /// <summary>
+    /// Gets or sets the template of the active tool's own buttons, shown in the header before the chrome's buttons. Its
+    /// data is the active dockable.
+    /// </summary>
+    public IDataTemplate HeaderActionsTemplate
+    {
+        get => GetValue(HeaderActionsTemplateProperty);
+        set => SetValue(HeaderActionsTemplateProperty, value);
+    }
 
     /// <summary>
     /// Gets or sets is pinned
