@@ -893,6 +893,7 @@ public abstract partial class FactoryBase
         targetOwner.ActiveDockable = dockable;
         dockable.OriginalOwner = null;
         UpdateDockingWindowState(dockable);
+        OnDockableUnpinned(dockable);
     }
 
     private bool IsOwnerAttached(IRootDock rootDock, IDock owner)

@@ -11,6 +11,7 @@ using Avalonia.VisualTree;
 using Dock.Avalonia.Automation.Peers;
 using Dock.Avalonia.Internal;
 using Dock.Model.Core;
+using Dock.Settings;
 using AvaloniaOrientation = Avalonia.Layout.Orientation;
 
 namespace Dock.Avalonia.Controls;
@@ -98,6 +99,7 @@ public class ToolPinItemControl : TemplatedControl
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
+        PseudoClasses.Set(":hide", DockSettings.PinMode == DockPinMode.Hide);
 
         _dragHelper = new ItemDragHelper(
             this,

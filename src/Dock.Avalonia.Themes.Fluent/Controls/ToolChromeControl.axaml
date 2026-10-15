@@ -69,6 +69,24 @@
             <Binding Path="(core:IDock).DockCapabilityPolicy.CanPin" />
           </MultiBinding>
           <Binding Path="$parent[ToolChromeControl].IsFloating" Converter="{x:Static BoolConverters.Not}" />
+          <Binding Converter="{x:Static converters:PinModeConverter.AutoHide}" />
+        </MultiBinding>
+      </MenuItem.IsVisible>
+    </MenuItem>
+    <MenuItem Header="{DynamicResource ToolChromeControlHideString}"
+              Command="{Binding Owner.Factory.PinDockable}"
+              CommandParameter="{Binding ActiveDockable}"
+              IsEnabled="{Binding ActiveDockable.OriginalOwner, Converter={x:Static ObjectConverters.IsNull}, FallbackValue=False}">
+      <MenuItem.IsVisible>
+        <MultiBinding Converter="{x:Static BoolConverters.And}">
+          <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
+            <Binding Path="ActiveDockable" />
+            <Binding Path="ActiveDockable.CanPin" />
+            <Binding Path="ActiveDockable.DockCapabilityOverrides.CanPin" />
+            <Binding Path="(core:IDock).DockCapabilityPolicy.CanPin" />
+          </MultiBinding>
+          <Binding Path="$parent[ToolChromeControl].IsFloating" Converter="{x:Static BoolConverters.Not}" />
+          <Binding Converter="{x:Static converters:PinModeConverter.Hide}" />
         </MultiBinding>
       </MenuItem.IsVisible>
     </MenuItem>
@@ -336,6 +354,15 @@
 
     <Style Selector="^:pinned /template/ Path#PART_PinPath">
       <Setter Property="Data" Value="{DynamicResource DockIconPinnedGeometry}" />
+    </Style>
+
+    <!-- Hide mode: the pin button hides the tool to its side -->
+    <Style Selector="^:hide /template/ Path#PART_PinPath">
+      <Setter Property="Data" Value="{DynamicResource DockIconMinimizeGeometry}" />
+    </Style>
+
+    <Style Selector="^:hide /template/ Button#PART_PinButton">
+      <Setter Property="ToolTip.Tip" Value="{DynamicResource ToolChromeControlHideTipString}" />
     </Style>
 
     <Style Selector="^:maximized /template/ Path#PART_MaximizeRestorePath">
