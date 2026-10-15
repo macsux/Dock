@@ -1,0 +1,16 @@
+<Project>
+  <!-- Project references as absolute paths under this project's directory, spelled the way the project was reached. A
+       relative one is resolved against the working directory, which on Unix is the symlink-free path: a checkout linked
+       into another repository (FrigginAI's external/Dock) would then build its references a second time, outside the
+       consumer's output and restore graph. -->
+  <ItemGroup>
+    <_DockRelativeProjectReference Include="@(ProjectReference)" Condition="!$([System.IO.Path]::IsPathRooted('%(Identity)'))" />
+    <ProjectReference Remove="@(_DockRelativeProjectReference)" />
+    <ProjectReference Include="@(_DockRelativeProjectReference->'$(MSBuildProjectDirectory)/%(Identity)')" />
+    <_DockRelativeProjectReference Remove="@(_DockRelativeProjectReference)" />
+  </ItemGroup>
+  <!-- Built into a consumer's artifacts directory: the XML documentation goes there too, not to bin/ in this checkout. -->
+  <PropertyGroup Condition="'$(UseArtifactsOutput)' == 'true' and '$(DocumentationFile)' != ''">
+    <DocumentationFile>$(IntermediateOutputPath)$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+</Project>
