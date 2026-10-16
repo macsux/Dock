@@ -25,6 +25,7 @@
             <Binding Path="(core:IDock).CanCloseLastDockable" FallbackValue="{x:True}" />
             <Binding Path="(core:IDock).VisibleDockables.Count" FallbackValue="0" />
           </MultiBinding>
+          <Binding Path="$parent[ToolChromeControl].IsFloating" Converter="{x:Static BoolConverters.Not}" />
         </MultiBinding>
       </MenuItem.IsVisible>
     </MenuItem>
@@ -33,11 +34,14 @@
               CommandParameter="{Binding ActiveDockable}"
               IsEnabled="{Binding ActiveDockable.OriginalOwner, Converter={x:Static ObjectConverters.IsNotNull}, FallbackValue=False}">
       <MenuItem.IsVisible>
-        <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
-          <Binding Path="ActiveDockable" />
-          <Binding Path="ActiveDockable.CanPin" />
-          <Binding Path="ActiveDockable.DockCapabilityOverrides.CanPin" />
-          <Binding Path="(core:IDock).DockCapabilityPolicy.CanPin" />
+        <MultiBinding Converter="{x:Static BoolConverters.And}">
+          <MultiBinding Converter="{x:Static converters:DockCapabilityConverters.CanPinMultiConverter}">
+            <Binding Path="ActiveDockable" />
+            <Binding Path="ActiveDockable.CanPin" />
+            <Binding Path="ActiveDockable.DockCapabilityOverrides.CanPin" />
+            <Binding Path="(core:IDock).DockCapabilityPolicy.CanPin" />
+          </MultiBinding>
+          <Binding Path="$parent[ToolChromeControl].IsFloating" Converter="{x:Static BoolConverters.Not}" />
         </MultiBinding>
       </MenuItem.IsVisible>
     </MenuItem>
