@@ -16,6 +16,8 @@ The string resources used for menu item headers are defined in `Controls/Control
 
 When a dock's `CanCloseLastDockable` property is set to `false` and only one dockable is visible, the built-in menus hide actions such as **Close** or **Float** using `CanRemoveDockableConverter`.
 
+In a floating window (`ToolChromeControl.IsFloating`) the tool chrome menu leaves out **Float**, **Dock**, **Auto Hide** and **Hide**: the tool is already floating and can't be pinned there.
+
 ## Customizing menus and themes per control
 
 Most Dock controls are created by templates, so set these properties via styles or control themes unless you have a direct instance reference. Each control exposes properties that allow you to customize the context menus, flyouts, and button themes for individual instances:
