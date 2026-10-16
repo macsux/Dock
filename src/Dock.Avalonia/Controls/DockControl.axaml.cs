@@ -1190,7 +1190,10 @@ public class DockControl : TemplatedControl, IDockControl, IDockSelectorService
             {
                 windowModel.Layout = root;
 
-                if (TopLevel.GetTopLevel(this) is IHostWindow window)
+                // A dock control nested in a floating window's content (a layout inside a dockable) leaves that window
+                // to the layout it already shows.
+                if (TopLevel.GetTopLevel(this) is IHostWindow window
+                    && (window.Window is null || ReferenceEquals(window.Window.Layout, root)))
                 {
                     root.Factory?.InitDockWindow(windowModel, root, window);
                 }
