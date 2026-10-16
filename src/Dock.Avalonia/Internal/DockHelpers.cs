@@ -213,6 +213,15 @@ internal static class DockHelpers
                 continue;
             }
 
+            // A dock control nested in this one's content (a layout inside a dockable) owns its own drag and drop areas.
+            if (input is DockControl host
+                && (control as DockControl ?? control.FindAncestorOfType<DockControl>()) is { } owner
+                && !ReferenceEquals(owner, host))
+            {
+                LogDropSearch($"  Candidate {control.GetType().Name}: skipped, it belongs to a nested dock control.");
+                continue;
+            }
+
             var isSet = control.IsSet(property);
             var value = isSet && control.GetValue(property);
             LogDropSearch($"  Candidate {control.GetType().Name}: IsSet={isSet}, Value={value}");
