@@ -118,35 +118,35 @@
 
     <Style Selector="^/template/ Image#PART_TopSelector">
       <Setter Property="Opacity" Value="0" />
-      <Setter Property="Source" Value="/Assets/DockAnchorableTop.png" />
+      <Setter Property="Source" Value="{DynamicResource DockTargetTopImage}" />
       <Setter Property="Width" Value="{DynamicResource DockTargetSelectorSize}" />
       <Setter Property="Height" Value="{DynamicResource DockTargetSelectorSize}" />
     </Style>
 
     <Style Selector="^/template/ Image#PART_BottomSelector">
       <Setter Property="Opacity" Value="0" />
-      <Setter Property="Source" Value="/Assets/DockAnchorableBottom.png" />
+      <Setter Property="Source" Value="{DynamicResource DockTargetBottomImage}" />
       <Setter Property="Width" Value="{DynamicResource DockTargetSelectorSize}" />
       <Setter Property="Height" Value="{DynamicResource DockTargetSelectorSize}" />
     </Style>
 
     <Style Selector="^/template/ Image#PART_LeftSelector">
       <Setter Property="Opacity" Value="0" />
-      <Setter Property="Source" Value="/Assets/DockAnchorableLeft.png" />
+      <Setter Property="Source" Value="{DynamicResource DockTargetLeftImage}" />
       <Setter Property="Width" Value="{DynamicResource DockTargetSelectorSize}" />
       <Setter Property="Height" Value="{DynamicResource DockTargetSelectorSize}" />
     </Style>
 
     <Style Selector="^/template/ Image#PART_RightSelector">
       <Setter Property="Opacity" Value="0" />
-      <Setter Property="Source" Value="/Assets/DockAnchorableRight.png" />
+      <Setter Property="Source" Value="{DynamicResource DockTargetRightImage}" />
       <Setter Property="Width" Value="{DynamicResource DockTargetSelectorSize}" />
       <Setter Property="Height" Value="{DynamicResource DockTargetSelectorSize}" />
     </Style>
 
     <Style Selector="^/template/ Image#PART_CenterSelector">
       <Setter Property="Opacity" Value="0" />
-      <Setter Property="Source" Value="/Assets/DockDocumentInside.png" />
+      <Setter Property="Source" Value="{DynamicResource DockTargetCenterImage}" />
       <Setter Property="Width" Value="{DynamicResource DockTargetSelectorSize}" />
       <Setter Property="Height" Value="{DynamicResource DockTargetSelectorSize}" />
     </Style>
