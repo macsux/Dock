@@ -47,6 +47,58 @@
 
     <StaticResource x:Key="DockTargetIndicatorBrush" ResourceKey="DockApplicationAccentBrushIndicator" />
 
+    <!-- Drop target icons, drawn from the theme's brushes so they follow the theme variant and the accent -->
+    <Pen x:Key="DockTargetSelectorPen" Brush="{DynamicResource DockBorderStrongBrush}" Thickness="1" />
+    <DrawingImage x:Key="DockTargetTopImage">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{DynamicResource DockThemeControlBackgroundBrush}" Pen="{DynamicResource DockTargetSelectorPen}">
+                <RectangleGeometry Rect="0.5,0.5,39,39" RadiusX="4" RadiusY="4" />
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{DynamicResource DockTargetIndicatorBrush}" Geometry="M6,6 h28 v9 h-28 Z" />
+            <GeometryDrawing Pen="{DynamicResource DockTargetSelectorPen}" Geometry="M6,6 h28 v28 h-28 Z" />
+            <GeometryDrawing Brush="{DynamicResource DockThemeForegroundBrush}" Geometry="M20,19 L25,26 H15 Z" />
+        </DrawingGroup>
+    </DrawingImage>
+    <DrawingImage x:Key="DockTargetBottomImage">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{DynamicResource DockThemeControlBackgroundBrush}" Pen="{DynamicResource DockTargetSelectorPen}">
+                <RectangleGeometry Rect="0.5,0.5,39,39" RadiusX="4" RadiusY="4" />
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{DynamicResource DockTargetIndicatorBrush}" Geometry="M6,25 h28 v9 h-28 Z" />
+            <GeometryDrawing Pen="{DynamicResource DockTargetSelectorPen}" Geometry="M6,6 h28 v28 h-28 Z" />
+            <GeometryDrawing Brush="{DynamicResource DockThemeForegroundBrush}" Geometry="M15,14 H25 L20,21 Z" />
+        </DrawingGroup>
+    </DrawingImage>
+    <DrawingImage x:Key="DockTargetLeftImage">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{DynamicResource DockThemeControlBackgroundBrush}" Pen="{DynamicResource DockTargetSelectorPen}">
+                <RectangleGeometry Rect="0.5,0.5,39,39" RadiusX="4" RadiusY="4" />
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{DynamicResource DockTargetIndicatorBrush}" Geometry="M6,6 h9 v28 h-9 Z" />
+            <GeometryDrawing Pen="{DynamicResource DockTargetSelectorPen}" Geometry="M6,6 h28 v28 h-28 Z" />
+            <GeometryDrawing Brush="{DynamicResource DockThemeForegroundBrush}" Geometry="M19,20 L26,15 V25 Z" />
+        </DrawingGroup>
+    </DrawingImage>
+    <DrawingImage x:Key="DockTargetRightImage">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{DynamicResource DockThemeControlBackgroundBrush}" Pen="{DynamicResource DockTargetSelectorPen}">
+                <RectangleGeometry Rect="0.5,0.5,39,39" RadiusX="4" RadiusY="4" />
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{DynamicResource DockTargetIndicatorBrush}" Geometry="M25,6 h9 v28 h-9 Z" />
+            <GeometryDrawing Pen="{DynamicResource DockTargetSelectorPen}" Geometry="M6,6 h28 v28 h-28 Z" />
+            <GeometryDrawing Brush="{DynamicResource DockThemeForegroundBrush}" Geometry="M21,20 L14,15 V25 Z" />
+        </DrawingGroup>
+    </DrawingImage>
+    <DrawingImage x:Key="DockTargetCenterImage">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{DynamicResource DockThemeControlBackgroundBrush}" Pen="{DynamicResource DockTargetSelectorPen}">
+                <RectangleGeometry Rect="0.5,0.5,39,39" RadiusX="4" RadiusY="4" />
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{DynamicResource DockTargetIndicatorBrush}" Geometry="M11,11 h18 v18 h-18 Z" />
+            <GeometryDrawing Pen="{DynamicResource DockTargetSelectorPen}" Geometry="M6,6 h28 v28 h-28 Z" />
+        </DrawingGroup>
+    </DrawingImage>
+
     <StaticResource x:Key="DockChromeButtonHoverBackgroundBrush" ResourceKey="DockThemeControlBackgroundBrush" />
     <StaticResource x:Key="DockChromeButtonPressedBackgroundBrush" ResourceKey="DockThemeBorderLowBrush" />
     <StaticResource x:Key="DockChromeButtonDangerHoverBrush" ResourceKey="DockApplicationAccentBrushHigh" />
