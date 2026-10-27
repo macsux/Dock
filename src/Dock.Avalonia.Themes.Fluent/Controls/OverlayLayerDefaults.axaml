@@ -1,22 +1,24 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:overlays="using:Dock.Avalonia.Controls.Overlays"
-                    x:CompileBindings="False">
+                    xmlns:services="using:Dock.Model.Services"
+                    x:CompileBindings="True">
+  <!-- The services come from the host's data context when it provides them (IHostOverlayServices); otherwise none. -->
   <overlays:OverlayLayerCollection x:Key="DockDefaultOverlayLayers" x:Shared="False">
     <overlays:OverlayLayer ZIndex="10"
                            StyleKey="{x:Static OverlayLayerStyleKeys.DialogLayerThemeKey}">
-      <DialogOverlayControl DialogService="{Binding Dialogs}"
-                            GlobalDialogService="{Binding GlobalDialogService}" />
+      <DialogOverlayControl DialogService="{Binding $self.((services:IHostOverlayServices)DataContext).Dialogs}"
+                            GlobalDialogService="{Binding $self.((services:IHostOverlayServices)DataContext).GlobalDialogService}" />
     </overlays:OverlayLayer>
     <overlays:OverlayLayer ZIndex="20"
                            StyleKey="{x:Static OverlayLayerStyleKeys.ConfirmationLayerThemeKey}">
-      <ConfirmationOverlayControl ConfirmationService="{Binding Confirmations}"
-                                  GlobalConfirmationService="{Binding GlobalConfirmationService}" />
+      <ConfirmationOverlayControl ConfirmationService="{Binding $self.((services:IHostOverlayServices)DataContext).Confirmations}"
+                                  GlobalConfirmationService="{Binding $self.((services:IHostOverlayServices)DataContext).GlobalConfirmationService}" />
     </overlays:OverlayLayer>
     <overlays:OverlayLayer ZIndex="30"
                            StyleKey="{x:Static OverlayLayerStyleKeys.BusyLayerThemeKey}">
-      <BusyOverlayControl BusyService="{Binding Busy}"
-                          GlobalBusyService="{Binding GlobalBusyService}" />
+      <BusyOverlayControl BusyService="{Binding $self.((services:IHostOverlayServices)DataContext).Busy}"
+                          GlobalBusyService="{Binding $self.((services:IHostOverlayServices)DataContext).GlobalBusyService}" />
     </overlays:OverlayLayer>
   </overlays:OverlayLayerCollection>
 

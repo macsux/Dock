@@ -25,14 +25,15 @@ internal static class DockDataTemplateHelper
     {
         yield return CreateDataTemplate<IDocumentContent>(() => new DocumentContentControl());
         yield return CreateDataTemplate<IToolContent>(() => new ToolContentControl());
+        // Compiled bindings: no reflection, so trimmed and NativeAOT apps keep them working.
         yield return CreateDataTemplate<IProportionalDockSplitter>(() => new ProportionalStackPanelSplitter
         {
-            [!ProportionalStackPanelSplitter.IsResizingEnabledProperty] = new Binding(nameof(IProportionalDockSplitter.CanResize)),
-            [!ProportionalStackPanelSplitter.PreviewResizeProperty] = new Binding(nameof(IProportionalDockSplitter.ResizePreview))
+            [!ProportionalStackPanelSplitter.IsResizingEnabledProperty] = CompiledBinding.Create((IProportionalDockSplitter s) => s.CanResize),
+            [!ProportionalStackPanelSplitter.PreviewResizeProperty] = CompiledBinding.Create((IProportionalDockSplitter s) => s.ResizePreview)
         });
         yield return CreateDataTemplate<IGridDockSplitter>(() => new GridSplitter
         {
-            [!GridSplitter.ResizeDirectionProperty] = new Binding(nameof(IGridDockSplitter.ResizeDirection))
+            [!GridSplitter.ResizeDirectionProperty] = CompiledBinding.Create((IGridDockSplitter s) => s.ResizeDirection)
         });
         yield return CreateDataTemplate<IDocumentDock>(() => new DocumentDockControl());
         yield return CreateDataTemplate<IToolDock>(() => new ToolDockControl());
