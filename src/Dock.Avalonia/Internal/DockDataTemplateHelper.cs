@@ -25,6 +25,7 @@ internal static class DockDataTemplateHelper
     {
         yield return CreateDataTemplate<IDocumentContent>(() => new DocumentContentControl());
         yield return CreateDataTemplate<IToolContent>(() => new ToolContentControl());
+#if AVALONIA_11
         yield return CreateDataTemplate<IProportionalDockSplitter>(() => new ProportionalStackPanelSplitter
         {
             [!ProportionalStackPanelSplitter.IsResizingEnabledProperty] = new Binding(nameof(IProportionalDockSplitter.CanResize)),
@@ -34,6 +35,18 @@ internal static class DockDataTemplateHelper
         {
             [!GridSplitter.ResizeDirectionProperty] = new Binding(nameof(IGridDockSplitter.ResizeDirection))
         });
+#else
+        // Compiled bindings: no reflection, so trimmed and NativeAOT apps keep them working.
+        yield return CreateDataTemplate<IProportionalDockSplitter>(() => new ProportionalStackPanelSplitter
+        {
+            [!ProportionalStackPanelSplitter.IsResizingEnabledProperty] = CompiledBinding.Create((IProportionalDockSplitter s) => s.CanResize),
+            [!ProportionalStackPanelSplitter.PreviewResizeProperty] = CompiledBinding.Create((IProportionalDockSplitter s) => s.ResizePreview)
+        });
+        yield return CreateDataTemplate<IGridDockSplitter>(() => new GridSplitter
+        {
+            [!GridSplitter.ResizeDirectionProperty] = CompiledBinding.Create((IGridDockSplitter s) => s.ResizeDirection)
+        });
+#endif
         yield return CreateDataTemplate<IDocumentDock>(() => new DocumentDockControl());
         yield return CreateDataTemplate<IToolDock>(() => new ToolDockControl());
         yield return CreateDataTemplate<ISplitViewDock>(() => new SplitViewDockControl());

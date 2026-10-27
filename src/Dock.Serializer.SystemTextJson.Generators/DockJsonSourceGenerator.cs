@@ -1465,6 +1465,10 @@ public sealed class DockJsonSourceGenerator : IIncrementalGenerator
             builder.AppendLine("        return new DockSerializer(new DockSystemTextJsonResolver());");
             builder.AppendLine("    }");
             builder.AppendLine();
+            builder.AppendLine("    [global::System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode(\"Lists of a custom list type are created through reflection; CreateSerializer() needs none.\")]");
+            builder.AppendLine("#if NET7_0_OR_GREATER");
+            builder.AppendLine("    [global::System.Diagnostics.CodeAnalysis.RequiresDynamicCode(\"Lists of a custom list type are created through MakeGenericType; CreateSerializer() needs none.\")]");
+            builder.AppendLine("#endif");
             builder.AppendLine("    internal static DockSerializer CreateSerializer(global::System.Type listType)");
             builder.AppendLine("    {");
             builder.AppendLine("        return new DockSerializer(listType, new DockSystemTextJsonResolver());");
@@ -1592,7 +1596,12 @@ public sealed class DockJsonSourceGenerator : IIncrementalGenerator
             builder.AppendLine("                writer.WriteEndObject();");
             builder.AppendLine("            }");
             builder.AppendLine();
+            // Through the options' (generated) metadata, not reflection: trim- and NativeAOT-safe.
+            builder.AppendLine("#if NET8_0_OR_GREATER");
+            builder.AppendLine("            return global::System.Text.Json.JsonSerializer.Deserialize(stream.ToArray(), options.GetTypeInfo(payloadType));");
+            builder.AppendLine("#else");
             builder.AppendLine("            return global::System.Text.Json.JsonSerializer.Deserialize(stream.ToArray(), payloadType, options);");
+            builder.AppendLine("#endif");
             builder.AppendLine("        }");
             builder.AppendLine();
             builder.AppendLine("        public override void Write(global::System.Text.Json.Utf8JsonWriter writer, object? value, global::System.Text.Json.JsonSerializerOptions options)");
@@ -1621,7 +1630,11 @@ public sealed class DockJsonSourceGenerator : IIncrementalGenerator
             builder.AppendLine("                throw new global::System.NotSupportedException($\"Dock source-generated object payload '{runtimeType.FullName ?? runtimeType.Name}' is not registered.\");");
             builder.AppendLine("            }");
             builder.AppendLine();
+            builder.AppendLine("#if NET8_0_OR_GREATER");
+            builder.AppendLine("            global::System.Text.Json.JsonElement element = global::System.Text.Json.JsonSerializer.SerializeToElement(value, options.GetTypeInfo(runtimeType));");
+            builder.AppendLine("#else");
             builder.AppendLine("            global::System.Text.Json.JsonElement element = global::System.Text.Json.JsonSerializer.SerializeToElement(value, runtimeType, options);");
+            builder.AppendLine("#endif");
             builder.AppendLine("            if (element.ValueKind != global::System.Text.Json.JsonValueKind.Object)");
             builder.AppendLine("            {");
             builder.AppendLine("                throw new global::System.NotSupportedException(\"Dock source-generated object payloads must serialize as JSON objects.\");");
